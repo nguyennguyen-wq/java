@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>  
 <style> 
-div {padding:10px;}
+div {padding:0px;}
 </style>
 <body>
 <div style="background-color:#00008B">
@@ -11,7 +11,141 @@ div {padding:10px;}
       <font face = "Comic sans MS" size ="5"><p style="margin : 0; padding-top:0;">
 
 My name is Quoc and i am a software developer. I will show you some java demo applications. 
-The first three demo app is about Sorting Algorithms, and i will also use
+The first demo app is about Java API with Hibernate and Spring Boot. In this demo app i will 
+show how to perform SQL database CRUD operations using Hibernate in Spring Boot.
+ <br/>
+ <br/>
+
+This demo app have a SQL database table customer with info about bank customer, firstname,
+lastname, social security number. The table customer has a One-To-Many association with
+table accounts. Eack bank customer may have one or many bank accounts. Savings account or
+current account. Each account will have field: account type and amount.<br/>
+
+We can define Data Models and Repository interfaces for JPA One-To-Many relationship by using
+Hibernate in Spring Boot. <br/>
+
+We can write Rest Apis to perform following CRUD operations : 
+
+
+<h4 style="color:NavajoWhite;">
+
+
+POST	/api/customers/:id/accounts	&nbsp &nbsp   create new bank account for a bank customer
+<br/>
+
+GET	/api/customers/:id/accounts	&nbsp &nbsp   retrieve all accounts of a customer
+<br/>
+GET	/api/accounts/:id	        &nbsp &nbsp   retrieve a account by :id
+<br/>
+PUT	/api/accounts/:id	&nbsp &nbsp   update a account by :id
+<br/>
+
+DELETE	/api/accounts/:id	&nbsp &nbsp   delete a account by :id
+<br/>
+
+DELETE	/api/customers/:id	&nbsp &nbsp    delete a customer (and its accounts) by :id
+<br/>
+
+DELETE	/api/customers/:id/accounts	&nbsp &nbsp   delete all accounts of a customer
+
+
+</h4>
+
+
+We can use many different type database with Spring Boot, for example Oracle or PostgresQL, SQl server and etc ...<br/>
+  
+If we choose to use Oracle Database, then we have to do this:</p>
+
+
+<ul>
+<li>
+Add a dependency for Oracle JDBC driver that connects Java applications with an Oracle database server
+</li>
+
+<li>
+Configure data source properties for the database connection information
+</li>
+
+<li>
+Add a dependency for Spring JDBC or Spring Data JPA, depending on your need
+</li></ul>
+
+Add the following dependency in pom.xml
+<br/>
+
+
+
+<h4 style="color:NavajoWhite;">
+
+&#60;dependency&#x3E;
+<br/>
+   &nbsp &nbsp  &#60;groupId&#x3E; com.oracle.database.jdbc &#60;&#47;groupId&#x3E;
+<br/>
+
+    &nbsp &nbsp &#60;artifactId&#x3E; ojdbc8 &#60;&#47;artifactId&#x3E;
+   <br/>
+
+      &nbsp &nbsp &#60;scope&#x3E; runtime &#60;&#47;scope&#x3E;
+ <br/>
+
+&#60;&#47;dependency&#x3E;
+     
+</h4>
+
+
+Next, configure some data source properties in the Spring Boot application configuration file
+
+
+<br/>
+
+<h4 style="color:NavajoWhite;">
+
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+<br/>
+spring.datasource.username=username
+<br/>
+spring.datasource.password=password
+
+</h4>
+
+
+When we finished with all the configuration and wrote the java codes, then we can build and run the project, and we can use tool Postman to 
+create and send API requests. Se next screen shoot
+
+<br/>
+<br/>
+
+
+ <img src="postman1.png" alt="" width="880" height="585">
+ <br/>
+<br/>
+<img src="postman2.png" alt="" width="880" height="585">
+ <br/>
+<br/>
+<img src="postman3.png" alt="" width="880" height="585">
+ <br/>
+
+<br/>
+
+
+
+<font face = "Comic sans MS" size ="5">You can find the codes for this app in my github repo link below
+      <p style="margin-bottom:0;">
+
+<p style="margin : 0; padding-top:0;">
+
+<a href="https://github.com/nguyennguyen-wq/JavaAPI" style="color:NavajoWhite;" target="_blank"> 
+https://github.com/nguyennguyen-wq/JavaAPI
+  </a>
+
+
+<br/>
+
+<br/>
+
+
+
+The next three demo app is about Sorting Algorithms, and i will also use
 Java Threads in the demo. The first demo is about
 insertion sort algorithm. You can see the demo in screen shoot and also a video below.
  <br/>
@@ -113,8 +247,12 @@ https://github.com/Nguyen105/javademo  </a>
       <p style="margin-bottom:0;">
         <font face = "Comic sans MS" size ="5">Software developer Quoc
       <p style="margin-bottom:0;">
-        <br/>
+        
   <br/>
+<br/>
+  <br/>
+<br/>
+  <br/>
+
 </div> 
 </body>
-<
