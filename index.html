@@ -144,6 +144,120 @@ https://github.com/nguyennguyen-wq/JavaAPI
 <br/>
 
 
+Now, I want to make sure that the functions I wrote in the Controller did 
+the right thing. And I will create JUNIT Testing. I will use Mockito and Junit.
+
+ <br/>
+  <br/>
+  First, I must put some example values to help me to test the Controller functions.
+  
+  <br/>
+ 
+  <h4 style="color:NavajoWhite;">
+  
+ @BeforeEach
+  <br/>
+  public void setup() {
+   <br/>
+   customer = new Customer();
+   <br/>
+    customer.setId(1L);
+  <br/>
+  customer.setFirstname("John");
+    <br/>
+	 customer.setLastname("Doe");
+	  <br/>
+	  customer.setSocialsecuritynumber(12345);
+	   <br/>
+	  customerList = Arrays.asList(
+   <br/>
+   new Customer("Barak", "Obama", 12345),
+   <br/>
+   new Customer("Bill", "Gates", 123)
+   <br/>
+   );
+   <br/>
+   }
+   
+   </h4>
+   
+   
+   Now, I can create the testing. I will first create testing for the GET all accounts Controller, 
+  please see below
+  <br/>
+ 
+   <h4 style="color:NavajoWhite;">
+  @Test
+   <br/>
+   public void testGetAllCustomers_ReturnsCustomersList() throws Exception {
+    <br/>
+	when(customerRepository.findAll()).thenReturn(customerList);
+	 <br/>
+	mockMvc.perform(get("/api/customers")
+	 <br/>
+	   .contentType(MediaType.APPLICATION_JSON))
+	  <br/>
+	  .andExpect(status().isOk())
+	   <br/>
+	     .andExpect(jsonPath("$", hasSize(2)))
+		 <br/>
+		  .andExpect(jsonPath("$[0].firstname", is("Barak")))
+	<br/>
+	 .andExpect(jsonPath("$[0].lastname", is("Obama")))
+	<br/>
+   .andExpect(jsonPath("$[0].socialsecuritynumber", is(12345)))
+   <br/>
+  .andExpect(jsonPath("$[1].firstname", is("Bill")))
+   <br/>
+    .andExpect(jsonPath("$[1].lastname", is("Gates")))
+	 <br/>
+	 .andExpect(jsonPath("$[1].socialsecuritynumber", is(123)));
+<br/>	
+	}
+	  </h4>
+	
+  Next, I will create the testing for the PUT Controller (Updating), 
+  please see below 
+	 <br/>
+	  <h4 style="color:NavajoWhite;">
+	 @Test
+	 <br/>
+	  public void testUpdateCustomer_Success() throws Exception {
+	  <br/>
+	  when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+ <br/>
+  String updatedCustomerJson = "{ \"firstname\": \"Bill\", \"lastname\": \"Gates\", \"socialsecuritynumber\": 12345 }";
+<br/>
+mockMvc.perform(put("/api/customers/1").contentType(MediaType.APPLICATION_JSON).content(updatedCustomerJson))
+<br/>
+.andExpect(status().isOk());
+<br/>
+assertThat(customer.getFirstname()).isEqualTo("Bill");
+<br/>
+        assertThat(customer.getLastname()).isEqualTo("Gates");
+		<br/>
+        assertThat(customer.getSocialsecuritynumber()).isEqualTo(12345);
+		<br/>
+        verify(customerRepository, times(1)).save(any(Customer.class));
+		<br/>
+    }
+	
+	 </h4>
+	 
+And i will create the testing for the DELETE and POST api Controller too. 
+<br/>
+You can see the whole Testing in my Github repo below.
+<br/>
+
+  <p style="margin-bottom:0;">
+
+<p style="margin : 0; padding-top:0;">
+
+<a href="https://github.com/nguyennguyen-wq/JavaJUnit" style="color:NavajoWhite;" target="_blank"> 
+https://github.com/nguyennguyen-wq/JavaJUnit
+  </a>
+<br/>
+<br/>	
 
 The next three demo app is about Sorting Algorithms, and i will also use
 Java Threads in the demo. The first demo is about
